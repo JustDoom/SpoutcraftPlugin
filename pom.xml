@@ -27,6 +27,7 @@
 		<mainClass>org.getspout.spout.Spout</mainClass>
 		<bukkitVersion>1.6.4-R2.1-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.4</minecraftVersion>
+		<temppath>/home/dino/Documents/GitHub/SpoutcraftPlugin/lib/craftbukkit.jar</temppath>
 	</properties>
 
 	<!-- Project developers -->
@@ -103,6 +104,10 @@
 				<updatePolicy>always</updatePolicy>
 			</snapshots>
 		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://www.jitpack.io</url>
+		</repository>
 	</repositories>
 
 	<!-- Build plugin repositories -->
@@ -144,16 +149,17 @@
 		</dependency>
 		<!-- Provided by third-party -->
 		<dependency>
-			<groupId>org.bukkit</groupId>
-			<artifactId>bukkit</artifactId>
-			<version>${bukkitVersion}</version>
+			<groupId>com.github.Bukkit</groupId>
+			<artifactId>Bukkit</artifactId>
+			<version>03f1847</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>${bukkitVersion}</version>
-			<scope>provided</scope>
+			<version>1.6.4-R2.0-SNAPSHOT</version>
+			<systemPath>${temppath}</systemPath>
+			<scope>system</scope>
 		</dependency>
 	</dependencies>
 
@@ -278,22 +284,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<!-- Coveralls reporting plugin  -->
-			<plugin>
-				<groupId>org.eluder.coveralls</groupId>
-				<artifactId>coveralls-maven-plugin</artifactId>
-				<version>2.2.0</version>
-			</plugin>
-			<!-- Cobertura test coverage plugin -->
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>cobertura-maven-plugin</artifactId>
-				<version>2.6</version>
-				<configuration>
-					<format>xml</format>
-					<maxmem>256m</maxmem>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
