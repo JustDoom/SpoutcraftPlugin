@@ -27,7 +27,10 @@
 		<mainClass>org.getspout.spout.Spout</mainClass>
 		<bukkitVersion>1.6.4-R2.1-SNAPSHOT</bukkitVersion>
 		<minecraftVersion>1.6.4</minecraftVersion>
-		<temppath>/home/dino/Documents/GitHub/SpoutcraftPlugin/lib/craftbukkit.jar</temppath>
+
+		<!-- Respouted added options -->
+		<craftbukkitFile>${basedir}/lib/craftbukkit.jar</craftbukkitFile>
+		<bukkitCommit>03f1847</bukkitCommit>
 	</properties>
 
 	<!-- Project developers -->
@@ -148,17 +151,22 @@
 			<scope>compile</scope>
 		</dependency>
 		<!-- Provided by third-party -->
+
+		<!-- Respouted modified -->
+		<!-- Change to use Bukkit api specific commit -->
 		<dependency>
 			<groupId>com.github.Bukkit</groupId>
 			<artifactId>Bukkit</artifactId>
-			<version>03f1847</version>
+			<version>${bukkitCommit}</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Change to use local file since versions this early are no longer available -->
 		<dependency>
 			<groupId>org.bukkit</groupId>
 			<artifactId>craftbukkit</artifactId>
-			<version>1.6.4-R2.0-SNAPSHOT</version>
-			<systemPath>${temppath}</systemPath>
+			<version>${bukkitVersion}</version>
+			<systemPath>${craftbukkitFile}</systemPath>
 			<scope>system</scope>
 		</dependency>
 	</dependencies>
@@ -285,6 +293,22 @@
 					</execution>
 				</executions>
 			</plugin>
+			<!-- Coveralls reporting plugin  -->
+<!--			<plugin>-->
+<!--				<groupId>org.eluder.coveralls</groupId>-->
+<!--				<artifactId>coveralls-maven-plugin</artifactId>-->
+<!--				<version>2.2.0</version>-->
+<!--			</plugin>-->
+<!--			&lt;!&ndash; Cobertura test coverage plugin &ndash;&gt;-->
+<!--			<plugin>-->
+<!--				<groupId>org.codehaus.mojo</groupId>-->
+<!--				<artifactId>cobertura-maven-plugin</artifactId>-->
+<!--				<version>2.6</version>-->
+<!--				<configuration>-->
+<!--					<format>xml</format>-->
+<!--					<maxmem>256m</maxmem>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 
