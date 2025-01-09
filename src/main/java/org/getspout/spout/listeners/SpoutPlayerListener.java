@@ -54,10 +54,8 @@ import org.getspout.spout.player.SimplePlayerChunkMap;
 import org.getspout.spout.player.SpoutCraftPlayer;
 import org.getspout.spoutapi.SpoutManager;
 import org.getspout.spoutapi.block.SpoutBlock;
-import org.getspout.spoutapi.inventory.SpoutEnchantment;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomBlock;
-import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.MaterialData;
 import org.getspout.spoutapi.packet.PacketAllowVisualCheats;
 import org.getspout.spoutapi.player.SpoutPlayer;
@@ -214,7 +212,7 @@ public class SpoutPlayerListener implements Listener {
 								// Yay, take the item from inventory
 								if (player.getGameMode() == GameMode.SURVIVAL) {
 									if (item.getAmount() == 1) {
-									// Remove this for Stuff	
+									// Remove this for Stuff
 									event.getPlayer().setItemInHand(null);
 									} else {
 										item.setAmount(item.getAmount() - 1);
@@ -338,28 +336,17 @@ public class SpoutPlayerListener implements Listener {
 		}
 	}
 
+	// These next two events are to make sure the UNSTACKABLE enchant (or any tool related ones) are applied when the item
+	// it picked up or thrown in case of plugin code changes or bugs
+
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerDrop(PlayerDropItemEvent e) {
-		SpoutItemStack sis = new SpoutItemStack(e.getItemDrop().getItemStack());
-		if (!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem()) {
-			CustomItem ci = (CustomItem)sis.getMaterial();
-			if (!ci.isStackable()) {
-				sis.addEnchantment(SpoutEnchantment.UNSTACKABLE, 1000);
-			}
-		}
-		e.getItemDrop().setItemStack(sis);
+	public void onPlayerDrop(PlayerDropItemEvent event) {
+		event.getItemDrop().setItemStack(new SpoutItemStack(event.getItemDrop().getItemStack()));
 	}
 
 	@EventHandler(priority = EventPriority.LOWEST)
-	public void onPlayerPickupItem(PlayerPickupItemEvent e) {
-		SpoutItemStack sis = new SpoutItemStack(e.getItem().getItemStack());
-		if (!sis.containsEnchantment(SpoutEnchantment.UNSTACKABLE) && sis.isCustomItem()) {
-			CustomItem ci = (CustomItem)sis.getMaterial();
-			if (!ci.isStackable()) {
-				sis.addEnchantment(SpoutEnchantment.UNSTACKABLE, 1000);
-			}
-		}
-		e.getItem().setItemStack(sis);
+	public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+		event.getItem().setItemStack(new SpoutItemStack(event.getItem().getItemStack()));
 	}
 }
 

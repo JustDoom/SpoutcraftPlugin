@@ -27,14 +27,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.CraftItemEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.inventory.ItemStack;
 import org.getspout.spout.Spout;
 
-import org.getspout.spoutapi.inventory.SpoutEnchantment;
 import org.getspout.spoutapi.inventory.SpoutItemStack;
 import org.getspout.spoutapi.material.CustomItem;
 import org.getspout.spoutapi.material.Material;
-import org.getspout.spoutapi.material.MaterialData;
 
 public class InventoryListener implements Listener{
 	public InventoryListener(Spout plugin) {
@@ -59,16 +56,13 @@ public class InventoryListener implements Listener{
 		}
 	}
 
-	@EventHandler(priority=EventPriority.LOWEST)
-	public void onItemCraft(CraftItemEvent e) {
-		ItemStack res = e.getCurrentItem();
-		res.removeEnchantment(SpoutEnchantment.UNSTACKABLE);
-		Material m = MaterialData.getMaterial(res.getTypeId(), res.getDurability());
-		if (m instanceof CustomItem) {
-			if (!((CustomItem) m).isStackable() && e.isShiftClick()) {
-				e.setCancelled(true); // Shift clicking causes... issues with unstackable Spout items.
-			}
+	@EventHandler(priority = EventPriority.LOWEST)
+	public void onItemCraft(CraftItemEvent event) {
+		SpoutItemStack result = new SpoutItemStack(event.getCurrentItem());
+		Material material = result.getMaterial();
+		if (result.isCustomItem() && !((CustomItem) material).isStackable() && event.isShiftClick()) {
+			event.setCancelled(true); // Shift clicking causes... issues with unstackable Spout items.
 		}
-		e.setCurrentItem(new SpoutItemStack(res)); // Handle enchantments and stuff.
+		event.setCurrentItem(result); // Handle enchantments and stuff.
 	}
 }
