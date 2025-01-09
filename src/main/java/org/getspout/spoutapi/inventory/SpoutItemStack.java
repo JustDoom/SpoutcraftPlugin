@@ -32,17 +32,26 @@ import org.getspout.spoutapi.material.Tool;
 public class SpoutItemStack extends ItemStack {
 	public SpoutItemStack(int typeId, int amount, short data, ItemMeta meta) {
 		super(typeId, amount, data);
-		Material m = getMaterial();
-		if (m instanceof GenericCustomTool) {
+
+		if (meta != null) {
+			super.setItemMeta(meta);
+		}
+
+		Material material = getMaterial();
+
+		// Used to only run if it did not have the UNSTACKABLE enchant already. Runs every time now to keep the enchant
+		// level fresh to reduce possible exploiting to make it stackable as counter resets on server restart
+		if (material instanceof CustomItem && !((CustomItem) material).isStackable()) {
+			addUnsafeEnchantment(SpoutEnchantment.UNSTACKABLE, ((CustomItem) material).getCounter());
+		}
+
+		if (material instanceof GenericCustomTool) {
 			if (!getEnchantments().containsKey(SpoutEnchantment.MAX_DURABILITY)) {
-				addUnsafeEnchantment(SpoutEnchantment.MAX_DURABILITY, ((Tool) m).getMaxDurability());
+				addUnsafeEnchantment(SpoutEnchantment.MAX_DURABILITY, ((Tool) material).getMaxDurability());
 			}
 			if (!getEnchantments().containsKey(SpoutEnchantment.DURABILITY)) {
 				addUnsafeEnchantment(SpoutEnchantment.DURABILITY, 0);
 			}
-		}
-		if (meta != null) {
-			super.setItemMeta(meta);
 		}
 	}
 
