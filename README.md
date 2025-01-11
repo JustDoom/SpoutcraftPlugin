@@ -20,7 +20,7 @@ SpoutcraftPlugin is licensed under the [GNU Lesser General Public License Versio
 
 ## Compiling the source
 
-SpoutcraftPlugin uses Maven to handle its dependencies.
+SpoutcraftPlugin uses Gradle to handle its dependencies.
 
 * Download and install [Gradle](https://gradle.org/)
 * Checkout this repo and run: `./gradlew build`
