@@ -68,6 +68,7 @@ nb-configuration.xml
 *.iml
 *.ipr
 *.iws
+.gradle
 
 # Runtime #
 ###########
@@ -80,3 +81,4 @@ nb-configuration.xml
 /update
 /updates
 /worlds
+/run
