@@ -28,13 +28,10 @@ dependencies {
 
     compileOnly("com.github.Bukkit:Bukkit:${"bukkit_version"()}")
     compileOnly("org.bukkit:craftbukkit:${"craftbukkit_version"()}")
+
     // If it breaks, use:
     // compileOnly(files("./lib/CraftBukkit-1.6.4-R2.1-SNAPSHOT.jar"))
 }
-
-// java {
-//     withJavadocJar()
-// }
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -56,14 +53,6 @@ tasks.processResources {
 
     filesMatching(listOf("plugin.yml")) {
         expand(props)
-    }
-}
-
-tasks.jar {
-    manifest {
-        attributes(mapOf(
-            "Main-Class" to "org.getspout.spout.Spout"
-        ))
     }
 }
 
