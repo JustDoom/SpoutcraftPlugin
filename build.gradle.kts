@@ -25,11 +25,11 @@ dependencies {
     implementation("commons-io:commons-io:${"commons_io_version"()}")
     implementation("net.sf.trove4j:trove4j:${"trove4j_version"()}")
     implementation("javax.xml.bind:jaxb-api:2.3.0")
-    implementation("com.sun.xml.bind:jaxb-core:2.3.0")
-    implementation("com.sun.xml.bind:jaxb-impl:2.3.0")
 
     compileOnly("com.github.Bukkit:Bukkit:${"bukkit_version"()}")
     compileOnly("org.bukkit:craftbukkit:${"craftbukkit_version"()}")
+    // If it breaks, use:
+    // compileOnly(files("./lib/CraftBukkit-1.6.4-R2.1-SNAPSHOT.jar"))
 }
 
 // java {
@@ -70,6 +70,10 @@ tasks.jar {
 tasks.shadowJar {
     isEnableRelocation = true
     relocationPrefix = "org.getspout.shadow"
+    
+    minimize {
+        exclude(dependency("cglib:cglib:.*"))
+    }
 }
 
 tasks.withType<JavaCompile>() {

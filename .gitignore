@@ -82,3 +82,7 @@ nb-configuration.xml
 /updates
 /worlds
 /run
+
+# Gradle #
+##########
+!gradle-wrapper.jar
