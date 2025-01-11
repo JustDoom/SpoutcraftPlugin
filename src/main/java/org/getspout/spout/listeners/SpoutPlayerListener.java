@@ -212,8 +212,8 @@ public class SpoutPlayerListener implements Listener {
 								// Yay, take the item from inventory
 								if (player.getGameMode() == GameMode.SURVIVAL) {
 									if (item.getAmount() == 1) {
-									// Remove this for Stuff
-									event.getPlayer().setItemInHand(null);
+										// Remove this for Stuff
+										event.getPlayer().setItemInHand(null);
 									} else {
 										item.setAmount(item.getAmount() - 1);
 									}
