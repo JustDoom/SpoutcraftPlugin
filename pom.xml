@@ -1,0 +1,340 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Project information -->
+	<name>SpoutcraftPlugin</name>
+	<groupId>org.spoutcraft</groupId>
+	<artifactId>spoutcraftplugin</artifactId>
+	<version>1.6.4-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<inceptionYear>2011</inceptionYear>
+	<url>https://github.com/Spoutcraft/SpoutcraftPlugin</url>
+	<description>Plugin that extends the Bukkit Minecraft server API.</description>
+
+	<!-- Parent information -->
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+	<!-- Build properties -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<buildNumber>5</buildNumber>
+		<ciSystem>unknown</ciSystem>
+		<commit>unknown</commit>
+		<mainClass>org.getspout.spout.Spout</mainClass>
+		<bukkitVersion>1.6.4-R2.1-SNAPSHOT</bukkitVersion>
+		<minecraftVersion>1.6.4</minecraftVersion>
+
+		<!-- Respouted added options -->
+		<craftbukkitFile>${basedir}/lib/craftbukkit.jar</craftbukkitFile>
+		<bukkitCommit>03f1847</bukkitCommit>
+	</properties>
+
+	<!-- Project developers -->
+	<developers>
+		<developer>
+			<id>mcsnetworks</id>
+			<name>Mike Howe</name>
+			<email>dockter@almuramc.com</email>
+		</developer>
+		<developer>
+			<id>Wulfspider</id>
+			<name>Luke Spragg</name>
+			<email>the@wulf.im</email>
+		</developer>
+	</developers>
+
+	<!-- Organization information -->
+	<organization>
+		<name>SpoutcraftDev</name>
+		<url>http://spoutcraft.org/</url>
+	</organization>
+
+	<!-- License information -->
+	<licenses>
+		<license>
+			<name>GNU Lesser General Public License Version 3</name>
+			<url>http://gnu.org/licenses/lgpl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<!-- Source code access -->
+	<scm>
+		<connection>scm:git:git://github.com/Spoutcraft/SpoutcraftPlugin.git</connection>
+		<developerConnection>scm:git:git@github.com:Spoutcraft/SpoutcraftPlugin.git</developerConnection>
+		<url>https://github.com/Spoutcraft/SpoutcraftPlugin</url>
+	</scm>
+
+	<!-- Continuous integration -->
+	<ciManagement>
+		<system>travis</system>
+		<url>https://travis-ci.org/Spoutcraft/SpoutcraftPlugin</url>
+	</ciManagement>
+
+	<!-- Issue management -->
+	<issueManagement>
+		<system>forums</system>
+		<url>http://spoutcraft.org/issues/</url>
+	</issueManagement>
+
+	<!-- Dependency repositories -->
+	<repositories>
+		<repository>
+			<id>bukkit-releases</id>
+			<url>http://repo.bukkit.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>bukkit-snapshots</id>
+			<url>http://repo.bukkit.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</repository>
+		<repository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://www.jitpack.io</url>
+		</repository>
+	</repositories>
+
+	<!-- Build plugin repositories -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>sonatype-nexus-releases</id>
+			<url>https://oss.sonatype.org/content/repositories/releases</url>
+		</pluginRepository>
+		<pluginRepository>
+			<id>sonatype-nexus-snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<!-- Project dependencies -->
+	<dependencies>
+		<!-- Include in final JAR -->
+		<dependency>
+			<groupId>cglib</groupId>
+			<artifactId>cglib</artifactId>
+			<version>2.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.trove4j</groupId>
+			<artifactId>trove4j</artifactId>
+			<version>3.0.3</version>
+			<scope>compile</scope>
+		</dependency>
+		<!-- Provided by third-party -->
+
+		<!-- Respouted modified -->
+		<!-- Change to use Bukkit api specific commit -->
+		<dependency>
+			<groupId>com.github.Bukkit</groupId>
+			<artifactId>Bukkit</artifactId>
+			<version>${bukkitCommit}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Change to use local file since versions this early are no longer available -->
+		<dependency>
+			<groupId>org.bukkit</groupId>
+			<artifactId>craftbukkit</artifactId>
+			<version>${bukkitVersion}</version>
+			<systemPath>${craftbukkitFile}</systemPath>
+			<scope>system</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- Build configuration -->
+	<build>
+		<defaultGoal>clean install</defaultGoal>
+
+		<!-- Resources to include -->
+		<resources>
+			<!-- Static resources -->
+			<resource>
+				<filtering>false</filtering>
+				<directory>.</directory>
+				<targetPath>.</targetPath>
+				<includes>
+					<include>LICENSE.txt</include>
+				</includes>
+			</resource>
+			<!-- Filtered resources -->
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<targetPath>.</targetPath>
+				<includes>
+					<include>*.yml</include>
+				</includes>
+			</resource>
+		</resources>
+
+		<!-- Build plugins -->
+		<plugins>
+			<!-- License header plugin -->
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<version>1.10.b1</version>
+				<executions>
+					<execution>
+						<configuration>
+							<properties>
+								<name>${project.name}</name>
+								<url>${project.organization.url}</url>
+								<inceptionYear>${project.inceptionYear}</inceptionYear>
+								<organization>${project.organization.name}</organization>
+							</properties>
+							<quiet>true</quiet>
+							<encoding>UTF-8</encoding>
+							<strictCheck>true</strictCheck>
+							<header>HEADER.txt</header>
+							<mapping>
+								<java>SLASHSTAR_STYLE</java>
+							</mapping>
+							<keywords>
+								<keyword>${project.name}</keyword>
+								<keyword>license</keyword>
+							</keywords>
+							<includes>
+								<include>src/main/java/**</include>
+								<include>src/test/java/**</include>
+							</includes>
+						</configuration>
+						<phase>clean</phase>
+						<goals>
+							<goal>format</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Source compiler plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+					<compilerArguments>
+						<O>-Xlint:all</O>
+						<O>-Xlint:-path</O>
+						<O>-Xlint:unchecked</O>
+					</compilerArguments>
+					<showWarnings>true</showWarnings>
+				</configuration>
+			</plugin>
+			<!-- Dependency addition plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<executions>
+					<execution>
+						<configuration>
+							<minimizeJar>true</minimizeJar>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.txt</exclude>
+										<exclude>LICENSE</exclude>
+										<exclude>NOTICE</exclude>
+									</excludes>
+									<artifact>cglib:cglib</artifact>
+									<includes>
+										<include>**</include>
+									</includes>
+								</filter>
+							</filters>
+							<relocations>
+								<relocation>
+									<pattern>net.sf.cglib</pattern>
+									<shadedPattern>${project.groupId}.lib.cglib</shadedPattern>
+								</relocation>
+								<relocation>
+									<pattern>org.objectweb.asm</pattern>
+									<shadedPattern>${project.groupId}.lib.asm</shadedPattern>
+								</relocation>
+							</relocations>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Coveralls reporting plugin  -->
+<!--			<plugin>-->
+<!--				<groupId>org.eluder.coveralls</groupId>-->
+<!--				<artifactId>coveralls-maven-plugin</artifactId>-->
+<!--				<version>2.2.0</version>-->
+<!--			</plugin>-->
+<!--			&lt;!&ndash; Cobertura test coverage plugin &ndash;&gt;-->
+<!--			<plugin>-->
+<!--				<groupId>org.codehaus.mojo</groupId>-->
+<!--				<artifactId>cobertura-maven-plugin</artifactId>-->
+<!--				<version>2.6</version>-->
+<!--				<configuration>-->
+<!--					<format>xml</format>-->
+<!--					<maxmem>256m</maxmem>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+		</plugins>
+	</build>
+
+	<!-- Reporting configuration -->
+	<reporting>
+		<!-- Reporting plugins -->
+		<plugins>
+			<!-- Javadoc creation plugin -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<sourcepath>src/main/java/org/getspout/spoutapi</sourcepath>
+					<!--<sourcepath>src/main/java/org/spoutcraft/api</sourcepath>-->
+					<bottom><![CDATA[Copyright (c) {project.inceptionYear} <a href="${project.organization.url}" target="_blank">${project.organization.name}</a>. ${project.name} is licensed under <a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">GNU Lesser General Public License Version 3</a>]]></bottom>
+					<doctitle><![CDATA[${project.name} API ${project.version}-b${buildNumber}]]></doctitle>
+					<windowtitle>Javadoc | ${project.name} API ${project.version}-b${buildNumber}</windowtitle>
+					<author>false</author>
+					<version>false</version>
+					<linksource>true</linksource>
+					<links>
+						<link>http://jd.bukkit.org/apidocs</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+</project>

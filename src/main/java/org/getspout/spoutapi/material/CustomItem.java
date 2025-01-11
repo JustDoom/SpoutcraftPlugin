@@ -62,8 +62,7 @@ public interface CustomItem extends Item {
 	public boolean isStackable();
 
 	/**
-	 * Gets the next short. Starts at Short.MIN_VALUE and loops back at Short.MAX_VALUE. This is used internally.
-	 * Used to give a "unique" level of the UNSTACKABLE enchant. Resets on server restart
+	 * Gets the next short. Starts at Short.MIN_VALUE and loopss back at Short.MAX_VALUE. This is used internally.
 	 */
 	public short getCounter();
 
