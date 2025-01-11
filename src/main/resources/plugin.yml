@@ -1,9 +1,9 @@
 name: Spout
-version: ${version}-b${buildNumber}
+version: ${project.version}-b${buildNumber}
 supportedVersions: [1.6.4-R2.0, 1.6.4-R2.1]
-description: ${description}
-website: ${url}
-author: ${author}
+description: ${project.description}
+website: ${project.url}
+author: ${project.organization.name}
 main: ${mainClass}
 load: startup
 commands:
